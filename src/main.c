@@ -5,25 +5,16 @@ void	ft_init(t_sim *sim, char **argv)
 	int	i;
 
 	sim->num = ft_atoi(argv[1]);
-	// printf("num of philos: %d\n", sim->num);
 	sim->time_to_die = ft_atoi(argv[2]);
-	// printf("time to die: %ld\n", sim->time_to_die);
 	sim->time_for_eating = ft_atoi(argv[3]);
-	// printf("time to eat: %ld\n", sim->time_for_eating);
 	sim->time_for_sleeping = ft_atoi(argv[4]);
 	if (argv[5])
-	{
 		sim->meals = ft_atoi(argv[5]);
-		// printf("num of meals: %d\n", sim->meals);
-	}
 	else
 		sim->meals = 0;
 	sim->sim_start_time = ft_time_stamp();
 	sim->count = 0;	
 	sim->test = 0;
-	// printf("sim_start_time: %lu\n", sim->sim_start_time);
-	// printf("count: %d\n", sim->count);
-	// printf("test_num: %d\n", sim->test);
 	sim->philos = malloc(sim->num * sizeof(t_philo));
 	sim->forks = malloc(sim->num * sizeof(pthread_mutex_t));
 	i = 0;
@@ -54,18 +45,8 @@ int	main(int argc, char **argv)
 	if (argc < 5 || argc > 6)
 		return (0);
 
-	// printf("thread_ID: %lu\n", pthread_self());
-
 	ft_init(&sim, argv);
 	ft_create_threads(&sim);
-	
-	// i = 0;
-	// while(i < sim.num)
-	// 	printf("%p\n", &philo.philos[i++]);
-
-	ft_stop_sim(&sim);
-
-	// ft_cleanup(&sim);
-	// printf("thread_ID: %lu\n", pthread_self());
+	ft_cleanup(&sim);
 	return (0);
 }

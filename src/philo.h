@@ -43,6 +43,6 @@ typedef struct s_sim
 void    ft_create_threads(t_sim *sim);
 long	ft_time_stamp(void);
 int     ft_atoi(const char *nptr);
-void	ft_stop_sim(t_sim *sim);
+void	ft_cleanup(t_sim *sim);
 
 #endif
