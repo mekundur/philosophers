@@ -23,7 +23,7 @@ typedef struct s_philo
 
 typedef struct s_sim
 {
-    // pthread_t       parent;
+    pthread_t       parent;
     t_philo         *philos;
     pthread_mutex_t *forks;    
     long            sim_start_time;
@@ -32,9 +32,14 @@ typedef struct s_sim
     long            time_for_sleeping;
     int             meals;   
     int             num;
+    int             run;
+    int             full;
     pthread_mutex_t meals_mutex;
+    pthread_mutex_t parent_mutex;
     pthread_mutex_t log;
+    pthread_mutex_t die;
     pthread_mutex_t tmp;
+    pthread_mutex_t loop;
 
     int count;
     int test;
@@ -43,6 +48,6 @@ typedef struct s_sim
 void    ft_create_threads(t_sim *sim);
 long	ft_time_stamp(void);
 int     ft_atoi(const char *nptr);
-void	ft_stop_sim(t_sim *sim);
+void	ft_cleanup(t_sim *sim);
 
 #endif
