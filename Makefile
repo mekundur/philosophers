@@ -1,7 +1,7 @@
 
 NAME = philo	
 HEADER = src/philo.h
-SRC = main.c philo.c utils.c
+SRC = main.c philo.c routine.c utils.c
 SRC := $(addprefix src/, $(SRC))
 
 OBJECTS = $(SRC:.c=.o)

@@ -13,16 +13,19 @@ void	ft_init(t_sim *sim, char **argv)
 	else
 		sim->meals = 0;
 	sim->sim_start_time = ft_time_stamp();
-	sim->count = 0;	
-	sim->test = 0;
+	sim->full = 0;	
+	sim->stop = 0;
 	sim->philos = malloc(sim->num * sizeof(t_philo));
 	sim->forks = malloc(sim->num * sizeof(pthread_mutex_t));
 	i = 0;
-	pthread_mutex_init(&sim->meals_mutex, NULL);
 	while (i < sim->num)
 		pthread_mutex_init(&sim->forks[i++], NULL);
 	pthread_mutex_init(&sim->log, NULL);
 	pthread_mutex_init(&sim->tmp, NULL);
+	pthread_mutex_init(&sim->die, NULL);
+	pthread_mutex_init(&sim->meals_mutex, NULL);
+	pthread_mutex_init(&sim->full_mutex, NULL);
+	pthread_mutex_init(&sim->stop_mutex, NULL);
 	i = 0;
 	while(i < sim->num)
 	{
@@ -30,8 +33,16 @@ void	ft_init(t_sim *sim, char **argv)
 		sim->philos[i].meals = 0;
 		sim->philos[i].creation_time = sim->sim_start_time;
 		sim->philos[i].last_meal = sim->sim_start_time;
-		sim->philos[i].r_fork = &sim->forks[(i) % sim->num];
-		sim->philos[i].l_fork = &sim->forks[(i + 1) % sim->num];
+		if (i == sim->num - 1) 
+		{
+			sim->philos[i].r_fork = &sim->forks[0];  
+			sim->philos[i].l_fork = &sim->forks[i];  
+		}
+		else
+		{
+			sim->philos[i].r_fork = &sim->forks[i];  
+			sim->philos[i].l_fork = &sim->forks[i + 1];  
+		}
 		sim->philos[i].sim = sim;
 		i++;
 	}
