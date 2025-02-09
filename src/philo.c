@@ -14,7 +14,6 @@ void	ft_cleanup(t_sim *sim)
 	pthread_mutex_destroy(&sim->full_mutex);
 	pthread_mutex_destroy(&sim->stop_mutex);
 	pthread_mutex_destroy(&sim->last_meal);
-
 	free(sim->forks);
 	free(sim->philos);
 }

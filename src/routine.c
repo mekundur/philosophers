@@ -49,7 +49,7 @@ bool    ft_eating_routine(t_sim *sim, t_philo *philo)
 	}
 	else
 	{
-		usleep(500);
+//		usleep(500);
 		pthread_mutex_lock(philo->l_fork);
 		pthread_mutex_lock(philo->r_fork);
 		print_log(sim, philo, "has taken a fork");    
@@ -57,10 +57,10 @@ bool    ft_eating_routine(t_sim *sim, t_philo *philo)
 	}
 	
 	philo->meals++;
-	print_log(sim, philo, "is eating");
 	pthread_mutex_lock(&sim->last_meal);
 	philo->last_meal = ft_time_stamp();
 	pthread_mutex_unlock(&sim->last_meal);
+	print_log(sim, philo, "is eating");
 	usleep(sim->time_to_eat * 1000);
 
 	pthread_mutex_lock(&sim->full_mutex);
@@ -92,6 +92,7 @@ void	*ft_routine(void *arg)
 	sim = (t_sim *)philo->sim;	
 	while (1)	
 	{
+		print_log(sim, philo, "is thinking");
 		pthread_mutex_lock(&sim->stop_mutex);
 		sim_stop = sim->stop;
 		pthread_mutex_unlock(&sim->stop_mutex);
@@ -101,7 +102,6 @@ void	*ft_routine(void *arg)
             return (NULL);
 		print_log(sim, philo, "is sleeping");
 		usleep(sim->time_to_sleep * 1000);
-		print_log(sim, philo, "is thinking");
 	}
 	return (NULL);
 }
