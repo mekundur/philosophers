@@ -32,12 +32,8 @@ void	*ft_routine_for_one(void *arg)
 			return(pthread_mutex_unlock(&sim->stop_mutex), NULL);
 		else
 			pthread_mutex_unlock(&sim->stop_mutex);
-
-		pthread_mutex_lock(&sim->tmp);
 		print_log(sim, philo, "is sleeping");
 		usleep(sim->time_to_sleep * 1000);
-		pthread_mutex_unlock(&sim->tmp);
-
 	}
 	return (NULL);
 }

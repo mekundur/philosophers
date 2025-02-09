@@ -8,7 +8,6 @@ void	ft_cleanup(t_sim *sim)
 	while (i < sim->num)
 		pthread_mutex_destroy(&sim->forks[i++]);
 	pthread_mutex_destroy(&sim->log);
-	pthread_mutex_destroy(&sim->tmp);
 	pthread_mutex_destroy(&sim->die);
 	pthread_mutex_destroy(&sim->monitor_mutex);
 	pthread_mutex_destroy(&sim->meals_mutex);

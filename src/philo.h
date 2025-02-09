@@ -36,7 +36,6 @@ typedef struct s_sim
     int             stop;
     pthread_mutex_t meals_mutex;
     pthread_mutex_t log;
-    pthread_mutex_t tmp;
     pthread_mutex_t stop_mutex;
     pthread_mutex_t full_mutex;
     pthread_mutex_t die;

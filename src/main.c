@@ -21,7 +21,6 @@ void	ft_init(t_sim *sim, char **argv)
 	while (i < sim->num)
 		pthread_mutex_init(&sim->forks[i++], NULL);
 	pthread_mutex_init(&sim->log, NULL);
-	pthread_mutex_init(&sim->tmp, NULL);
 	pthread_mutex_init(&sim->die, NULL);
 	pthread_mutex_init(&sim->monitor_mutex, NULL);
 	pthread_mutex_init(&sim->meals_mutex, NULL);
