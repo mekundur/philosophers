@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mekundur <mekundur@student.42berlin.d      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/09 16:56:19 by mekundur          #+#    #+#             */
+/*   Updated: 2025/02/09 17:02:24 by mekundur         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 void	ft_cleanup(t_sim *sim)
@@ -18,14 +30,15 @@ void	ft_cleanup(t_sim *sim)
 	free(sim->philos);
 }
 
-long long	ft_time_stamp(void)
+long long	ft_time(void)
 {
-	struct timeval time;
-    gettimeofday(&time, NULL);
+	struct timeval	time;
+
+	gettimeofday(&time, NULL);
 	return ((time.tv_sec * 1000LL) + (time.tv_usec / 1000LL));
 }
 
-void	print_log(t_sim *sim, t_philo *philo, char *log) 
+void	print_log(t_sim *sim, t_philo *philo, char *log)
 {
 	pthread_mutex_lock(&sim->stop_mutex);
 	if (sim->stop)
@@ -35,7 +48,7 @@ void	print_log(t_sim *sim, t_philo *philo, char *log)
 	}
 	pthread_mutex_unlock(&sim->stop_mutex);
 	pthread_mutex_lock(&sim->log);
-	printf("%.3lld %.3d %s\n", ft_time_stamp() - sim->start_time, philo->id, log);
+	printf("%.3lld %.3d %s\n", ft_time() - sim->start_time, philo->id, log);
 	pthread_mutex_unlock(&sim->log);
 }
 
@@ -44,16 +57,17 @@ void	ft_create_threads(t_sim *sim)
 	int		i;
 
 	pthread_create(&sim->monitor, NULL, &ft_monitor, sim);
-	
 	i = 0;
 	if (sim->num == 1)
-		pthread_create(&sim->philos[i].thread, NULL, &ft_routine_for_one, &sim->philos[i]);
+		pthread_create(&sim->philos[i].thread, NULL, \
+				&ft_routine_for_one, &sim->philos[i]);
 	else
 	{
 		i = 0;
 		while (i < sim->num && sim->num > 1)
 		{
-			pthread_create(&sim->philos[i].thread, NULL, &ft_routine, &sim->philos[i]);
+			pthread_create(&sim->philos[i].thread, NULL, \
+					&ft_routine, &sim->philos[i]);
 			i++;
 		}
 	}

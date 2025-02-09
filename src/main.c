@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mekundur <mekundur@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/09 17:44:33 by mekundur          #+#    #+#             */
+/*   Updated: 2025/02/09 20:05:14 by mekundur         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 void	ft_sim_init(t_sim *sim, char **argv)
@@ -10,8 +22,8 @@ void	ft_sim_init(t_sim *sim, char **argv)
 		sim->meals = ft_atoi(argv[5]);
 	else
 		sim->meals = 0;
-	sim->start_time = ft_time_stamp();
-	sim->full = 0;	
+	sim->start_time = ft_time();
+	sim->full = 0;
 	sim->stop = 0;
 }
 
@@ -36,25 +48,25 @@ void	ft_forks_init(t_sim *sim, int i)
 {
 	if (sim->num == 1)
 	{
-		sim->philos[i].r_fork = &sim->forks[0];  
-		sim->philos[i].l_fork = NULL; 
+		sim->philos[i].r_fork = &sim->forks[0];
+		sim->philos[i].l_fork = NULL;
 	}
 	else if (sim->num == 2)
 	{
-		sim->philos[0].r_fork = &sim->forks[1];  
-		sim->philos[0].l_fork = &sim->forks[0];  
-		sim->philos[1].r_fork = &sim->forks[0];  
-		sim->philos[1].l_fork = &sim->forks[1]; 
+		sim->philos[0].r_fork = &sim->forks[1];
+		sim->philos[0].l_fork = &sim->forks[0];
+		sim->philos[1].r_fork = &sim->forks[0];
+		sim->philos[1].l_fork = &sim->forks[1];
 	}
-	else if (i == sim->num - 1) 
+	else if (i == sim->num - 1)
 	{
-		sim->philos[i].r_fork = &sim->forks[0];  
-		sim->philos[i].l_fork = &sim->forks[i];  
+		sim->philos[i].r_fork = &sim->forks[0];
+		sim->philos[i].l_fork = &sim->forks[i];
 	}
 	else
 	{
-		sim->philos[i].r_fork = &sim->forks[i];  
-		sim->philos[i].l_fork = &sim->forks[i + 1];  
+		sim->philos[i].r_fork = &sim->forks[i];
+		sim->philos[i].l_fork = &sim->forks[i + 1];
 	}
 }
 
@@ -64,7 +76,7 @@ void	ft_philos_init(t_sim *sim)
 
 	sim->philos = malloc(sim->num * sizeof(t_philo));
 	i = 0;
-	while(i < sim->num)
+	while (i < sim->num)
 	{
 		sim->philos[i].id = i + 1;
 		sim->philos[i].meals = 0;
@@ -79,19 +91,16 @@ void	ft_philos_init(t_sim *sim)
 int	main(int argc, char **argv)
 {
 	t_sim	sim;
-	// int		i;
 
 	if (argc < 5 || argc > 6)
 		return (0);
-	
-	//input check
-	if (argv[5] && ft_atoi(argv[5]) == 0)
+	if (!input_check(argv))
 		return (0);
-
+//	if (argv[5] && ft_atoi(argv[5]) == 0)
+//		return (0);
 	ft_sim_init(&sim, argv);
 	ft_mutex_init(&sim);
 	ft_philos_init(&sim);
-
 	ft_create_threads(&sim);
 	ft_cleanup(&sim);
 	return (0);
