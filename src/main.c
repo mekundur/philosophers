@@ -69,6 +69,10 @@ int	main(int argc, char **argv)
 
 	if (argc < 5 || argc > 6)
 		return (0);
+	
+	//input check
+	if (argv[5] && ft_atoi(argv[5]) == 0)
+		return (0);
 
 	ft_init(&sim, argv);
 	ft_create_threads(&sim);
