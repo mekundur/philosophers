@@ -56,7 +56,7 @@ typedef struct s_sim
 
 }					t_sim;
 
-bool			    input_check(char **argv);
+bool				input_check(int argc, char **argv);
 long long			ft_time(void);
 int					ft_atoi(const char *nptr);
 void				ft_cleanup(t_sim *sim);

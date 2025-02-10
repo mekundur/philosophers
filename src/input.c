@@ -12,62 +12,51 @@
 
 #include "philo.h"
 
-static int	limit_check(char **arr)
+static bool	limit_check(char **argv)
 {
-	int	num;
+	int	j;
 	int	i;
 
-	num = 0;
-	while (arr[num])
+	j = 0;
+	while (argv[j])
 	{
 		i = 0;
-		if (arr[num][i] == '-' || arr[num][i] == '+')
+		if (argv[j][i] == '-' || argv[j][i] == '+')
 		{
-			if (arr[num][++i] == '0')
+			if (argv[j][++i] == '0')
 				return (1);
 		}
-		else if (arr[num][i] != '0' && ft_atoi(arr[num]) == 0)
+		else if (argv[j][i] != '0' && ft_atoi(argv[j]) == 0)
 			return (0);
-		num++;
+		j++;
 	}
 	return (1);
 }
 
-static int	minusplus_check(char **arr)
+static bool	char_check(char **argv)
 {
-	int	num;
-	int	i;
+	int	j;
 
-	i = 0;
-	num = 0;
-	while (arr[num])
+	j = 1;
+	while (argv[j])
 	{
-		if (arr[num][i] == '-')
+		if (argv[j][0] < '0' || argv[j][0] > '9')
 			return (0);
-		i = 0;
-		if (arr[num][i] == '+' ||
-			(arr[num][i] >= '0' && arr[num][i] <= '9'))
-		{
-			i++;
-			while (arr[num][i])
-			{
-				if (!(arr[num][i] >= '0' && arr[num][i] <= '9'))
-					return (0);
-				i++;
-			}
-		}
-		num++;
+		j++;
 	}
 	return (1);
 }
 
-bool	input_check(char **argv)
+bool	input_check(int argc, char **argv)
 {
-	if (argv[5] && ft_atoi(argv[5]) == 0)
+	if (argc < 5 || argc > 6)
 		return (0);
-	if (!minusplus_check(argv))
+	else if (ft_atoi(argv[1]) == 0 || ft_atoi(argv[2]) == 0
+		|| (argv[5] && ft_atoi(argv[5]) == 0))
+		return (0);
+	if (!char_check(argv))
 		return (0);
 	if (!limit_check(argv))
-		return (-1);
+		return (1);
 	return (1);
 }

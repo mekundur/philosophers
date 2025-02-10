@@ -12,8 +12,13 @@
 
 #include "philo.h"
 
-bool	ft_check_starvation(t_sim *sim, t_philo *philo, long long last)
+bool	ft_check_starvation(t_sim *sim, t_philo *philo)
 {
+	long long	last;
+
+	pthread_mutex_lock(&sim->last_meal);
+	last = philo->last_meal;
+	pthread_mutex_unlock(&sim->last_meal);
 	if ((ft_time() - last) > sim->time_to_die)
 	{
 		print_log(sim, philo, "died");
@@ -30,7 +35,6 @@ void	*ft_monitor(void *arg)
 	t_philo		*philo;
 	t_sim		*sim;
 	int			i;
-	long long	last;
 
 	sim = (t_sim *)arg;
 	while (1)
@@ -43,10 +47,7 @@ void	*ft_monitor(void *arg)
 		while (i < sim->num)
 		{
 			philo = &sim->philos[i];
-			pthread_mutex_lock(&sim->last_meal);
-			last = philo->last_meal;
-			pthread_mutex_unlock(&sim->last_meal);
-			if (!ft_check_starvation(sim, philo, last))
+			if (!ft_check_starvation(sim, philo))
 				return (NULL);
 			i++;
 		}

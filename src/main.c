@@ -92,12 +92,8 @@ int	main(int argc, char **argv)
 {
 	t_sim	sim;
 
-	if (argc < 5 || argc > 6)
+	if (!input_check(argc, argv))
 		return (0);
-	if (!input_check(argv))
-		return (0);
-//	if (argv[5] && ft_atoi(argv[5]) == 0)
-//		return (0);
 	ft_sim_init(&sim, argv);
 	ft_mutex_init(&sim);
 	ft_philos_init(&sim);
