@@ -6,7 +6,7 @@
 /*   By: mekundur <mekundur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 19:34:41 by mekundur          #+#    #+#             */
-/*   Updated: 2025/02/10 19:58:45 by mekundur         ###   ########.fr       */
+/*   Updated: 2025/02/11 23:40:17 by mekundur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,17 @@ void	ft_mutex_init(t_sim *sim)
 
 void	ft_forks_init_cont(t_sim *sim, int i)
 {
-	if (i % 2 == 1)
+	if ((i == sim->num - 1) && (i % 2 == 0))
+	{
+		sim->philos[i].r_fork = &sim->forks[i];
+		sim->philos[i].l_fork = &sim->forks[0];
+	}
+	else if ((i == sim->num - 1) && (i % 2 == 1))
+	{
+		sim->philos[i].r_fork = &sim->forks[0];
+		sim->philos[i].l_fork = &sim->forks[i];
+	}
+	else if (i % 2 == 0)
 	{
 		sim->philos[i].r_fork = &sim->forks[i];
 		sim->philos[i].l_fork = &sim->forks[i + 1];
@@ -56,11 +66,6 @@ void	ft_forks_init(t_sim *sim, int i)
 		sim->philos[0].l_fork = &sim->forks[0];
 		sim->philos[1].r_fork = &sim->forks[1];
 		sim->philos[1].l_fork = &sim->forks[0];
-	}
-	else if (i == sim->num - 1)
-	{
-		sim->philos[i].r_fork = &sim->forks[0];
-		sim->philos[i].l_fork = &sim->forks[i];
 	}
 	else
 		ft_forks_init_cont(sim, i);

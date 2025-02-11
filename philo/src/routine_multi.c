@@ -6,7 +6,7 @@
 /*   By: mekundur <mekundur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:54:56 by mekundur          #+#    #+#             */
-/*   Updated: 2025/02/10 19:01:30 by mekundur         ###   ########.fr       */
+/*   Updated: 2025/02/11 23:15:03 by mekundur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,10 @@ void	*ft_routine(void *arg)
 
 	philo = (t_philo *)arg;
 	sim = (t_sim *)philo->sim;
+	if (philo->id % 2 == 0)
+		usleep(200);
 	while (1)
 	{
-		if (philo->id % 2 == 0)
-			usleep(100);
 		ft_eating_routine(sim, philo);
 		print_log(sim, philo, "is sleeping");
 		pthread_mutex_lock(&sim->stop_mutex);

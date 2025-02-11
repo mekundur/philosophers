@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mekundur <mekundur@student.42berlin.d      +#+  +:+       +#+         #
+#    By: mekundur <mekundur@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/10 19:21:49 by mekundur          #+#    #+#              #
-#    Updated: 2025/02/10 20:18:22 by mekundur         ###   ########.fr        #
+#    Updated: 2025/02/11 23:42:11 by mekundur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
