@@ -6,7 +6,7 @@
 /*   By: mekundur <mekundur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:29:26 by mekundur          #+#    #+#             */
-/*   Updated: 2025/02/09 20:04:25 by mekundur         ###   ########.fr       */
+/*   Updated: 2025/02/10 19:10:46 by mekundur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,11 @@ typedef struct s_sim
 
 }					t_sim;
 
+void				ft_sim_init(t_sim *sim, char **argv);
+void				ft_mutex_init(t_sim *sim);
+void				ft_forks_init_cont(t_sim *sim, int i);
+void				ft_forks_init(t_sim *sim, int i);
+void				ft_philos_init(t_sim *sim);
 bool				input_check(int argc, char **argv);
 long long			ft_time(void);
 int					ft_atoi(const char *nptr);
@@ -66,5 +71,6 @@ void				ft_create_threads(t_sim *sim);
 void				*ft_routine(void *arg);
 void				*ft_routine_for_one(void *arg);
 void				*ft_monitor(void *arg);
+void				custom_time(long long millilen);
 
 #endif

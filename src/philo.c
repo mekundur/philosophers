@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mekundur <mekundur@student.42berlin.d      +#+  +:+       +#+        */
+/*   By: mekundur <mekundur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:56:19 by mekundur          #+#    #+#             */
-/*   Updated: 2025/02/09 17:02:24 by mekundur         ###   ########.fr       */
+/*   Updated: 2025/02/10 17:54:56 by mekundur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,17 @@ long long	ft_time(void)
 	return ((time.tv_sec * 1000LL) + (time.tv_usec / 1000LL));
 }
 
+void	custom_time(long long millilen)
+{
+	long long	start;
+
+	start = ft_time();
+	while ((ft_time() - start) < millilen)
+	{
+		usleep(500);
+	}
+}
+
 void	print_log(t_sim *sim, t_philo *philo, char *log)
 {
 	pthread_mutex_lock(&sim->stop_mutex);
@@ -47,9 +58,14 @@ void	print_log(t_sim *sim, t_philo *philo, char *log)
 		return ;
 	}
 	pthread_mutex_unlock(&sim->stop_mutex);
-	pthread_mutex_lock(&sim->log);
-	printf("%.3lld %.3d %s\n", ft_time() - sim->start_time, philo->id, log);
-	pthread_mutex_unlock(&sim->log);
+	pthread_mutex_lock(&sim->stop_mutex);
+	if (!sim->stop)
+	{
+		pthread_mutex_unlock(&sim->stop_mutex);
+		pthread_mutex_lock(&sim->log);
+		printf("%.3lld %.3d %s\n", ft_time() - sim->start_time, philo->id, log);
+		pthread_mutex_unlock(&sim->log);
+	}
 }
 
 void	ft_create_threads(t_sim *sim)
